@@ -4,9 +4,10 @@ import Component.Transformation;
 import EntityItem.Entity;
 import Material.Material;
 import Material.Texture;
-import Render.Renderer;
+import Render.EntityRenderer;
 import org.joml.Vector3f;
-import org.lwjgl.opengl.*;
+import org.lwjgl.opengl.GL;
+import org.lwjgl.opengl.GL11;
 import org.lwjgl.system.MemoryUtil;
 
 import static org.lwjgl.glfw.GLFW.*;
@@ -43,33 +44,22 @@ public class Main {
 
         init();
 
-        Renderer renderer = new Renderer();
+        //Renderer renderer = new Renderer();
         Entity backPackEntity = new Entity(
                 new Transformation(
                         new Vector3f(0, -0.14f, -30),
                         new Vector3f(0, 0, 0), 0.06f),
-                new Material(new Texture("assets/models/scifiFemale.png")),
+                new Material(new Texture("assets/textures/human/scifiFemale.png")),
                 "assets/models/scifiFemale.obj");
+
+        EntityRenderer entityRenderer = new EntityRenderer();
+        entityRenderer.loadProjectionMatrix();
 
         while (!glfwWindowShouldClose(window)) {
 
-            renderer.prepare();
-            renderer.loadShader(backPackEntity);
-
-            for (int i = 0; i < backPackEntity.getRawModel().length; i++) {
-                GL30.glBindVertexArray(backPackEntity.getRawModel()[i].getVaoID());
-                GL20.glEnableVertexAttribArray(0);
-                GL20.glEnableVertexAttribArray(1);
-                GL20.glEnableVertexAttribArray(2);
-                GL13.glActiveTexture(GL13.GL_TEXTURE0);
-                GL11.glBindTexture(GL11.GL_TEXTURE_2D, backPackEntity.getMaterial().getDiffuse().getTextureID());
-                GL11.glDrawElements(GL11.GL_TRIANGLES, backPackEntity.getRawModel()[i].getIndices(), GL11.GL_UNSIGNED_INT, 0);
-                GL20.glDisableVertexAttribArray(0);
-                GL20.glDisableVertexAttribArray(1);
-                GL20.glDisableVertexAttribArray(2);
-                GL30.glBindVertexArray(0);
-            }
-
+            entityRenderer.prepare();
+            entityRenderer.render(backPackEntity);
+            entityRenderer.close();
             update();
 
         }
