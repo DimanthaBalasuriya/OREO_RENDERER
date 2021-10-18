@@ -4,10 +4,12 @@ import Component.Transformation;
 import EntityItem.Entity;
 import Material.Material;
 import Material.Texture;
-import Render.EntityRenderer;
+import Shader.DefaultShader;
+import Tool.Mathematics;
+import org.joml.Math;
+import org.joml.Matrix4f;
 import org.joml.Vector3f;
-import org.lwjgl.opengl.GL;
-import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.*;
 import org.lwjgl.system.MemoryUtil;
 
 import static org.lwjgl.glfw.GLFW.*;
@@ -18,51 +20,64 @@ public class Main {
     private static final int HEIGHT = 720;
     private static final String TITLE = "oreo";
 
-    private static final float[] lightCubePosition = {
-            -0.5f, 0.5f, 0.5f,
-            -0.5f, -0.5f, 0.5f,
-            0.5f, -0.5f, 0.5f,
-            0.5f, 0.5f, 0.5f,
-            -0.5f, 0.5f, -0.5f,
-            0.5f, 0.5f, -0.5f,
-            -0.5f, -0.5f, -0.5f,
-            0.5f, -0.5f, -0.5f,
-    };
+    private static final float RED = 0.12f;
+    private static final float GREEN = 0.12f;
+    private static final float BLUE = 0.12f;
+    private static final float ALPHA = 1.0f;
 
-    private static final int[] lightCubeIndices = {
-            0, 1, 3, 3, 1, 2,
-            4, 0, 3, 5, 4, 3,
-            3, 2, 7, 5, 3, 7,
-            6, 1, 0, 6, 0, 4,
-            2, 1, 6, 2, 6, 7,
-            7, 6, 4, 7, 4, 5,
-    };
+    private static final float FOV = Math.toRadians(60.0f);
+    private static final float Z_NEAR = 0.1f;
+    private static final float Z_FAR = 1000.0f;
 
     private static long window;
 
     public static void main(String[] args) {
 
         init();
+        GL.createCapabilities();
 
-        //Renderer renderer = new Renderer();
         Entity backPackEntity = new Entity(
                 new Transformation(
-                        new Vector3f(0, -0.14f, -30),
-                        new Vector3f(0, 0, 0), 0.06f),
-                new Material(new Texture("assets/textures/human/scifiFemale.png")),
-                "assets/models/scifiFemale.obj");
+                        new Vector3f(0, -0.05f, -10),
+                        new Vector3f(0, 0, 0), 0.02f),
+                new Material(new Texture("assets/textures/human/scifiFemale.png"))
+                , "assets/models/scifiFemale.obj");
 
-        EntityRenderer entityRenderer = new EntityRenderer();
-        entityRenderer.loadProjectionMatrix();
+        DefaultShader defaultShader = new DefaultShader();
+
+        GL11.glViewport(0, 0, WIDTH, HEIGHT);
+        Matrix4f matrix = Mathematics.getProjectionMatrix(FOV, Z_NEAR, Z_FAR, WIDTH, HEIGHT);
+
+        defaultShader.start();
+        defaultShader.loadProjectionMatrix(matrix);
 
         while (!glfwWindowShouldClose(window)) {
 
-            entityRenderer.prepare();
-            entityRenderer.render(backPackEntity);
-            entityRenderer.close();
+            GL11.glClearColor(RED, GREEN, BLUE, ALPHA);
+            GL11.glEnable(GL11.GL_DEPTH_TEST);
+            GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
+
+            backPackEntity.getTransformation().setRotation(new Vector3f(0, (float) glfwGetTime() * 10, 0));
+            defaultShader.loadTransformationMatrix(Mathematics.getTransformationMatrix(backPackEntity));
+
+            for (int i = 0; i < backPackEntity.getRawModel().length; i++) {
+                GL30.glBindVertexArray(backPackEntity.getRawModel()[i].getVaoID());
+                GL20.glEnableVertexAttribArray(0);
+                GL20.glEnableVertexAttribArray(1);
+                GL20.glEnableVertexAttribArray(2);
+                GL13.glActiveTexture(GL13.GL_TEXTURE0);
+                GL11.glBindTexture(GL11.GL_TEXTURE_2D, backPackEntity.getMaterial().getDiffuse().getTextureID());
+                GL11.glDrawElements(GL11.GL_TRIANGLES, backPackEntity.getRawModel()[i].getIndices(), GL11.GL_UNSIGNED_INT, 0);
+                GL20.glDisableVertexAttribArray(0);
+                GL20.glDisableVertexAttribArray(1);
+                GL20.glDisableVertexAttribArray(2);
+                GL30.glBindVertexArray(0);
+            }
+
             update();
 
         }
+        defaultShader.cleanUp();
         destroy();
 
     }
@@ -85,8 +100,6 @@ public class Main {
         }
 
         glfwMakeContextCurrent(window);
-        GL.createCapabilities();
-        GL11.glViewport(0, 0, WIDTH, HEIGHT);
 
     }
 
