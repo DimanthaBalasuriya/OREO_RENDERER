@@ -26,6 +26,9 @@ public class Main {
     private static final float BLUE = 0.12f;
     private static final float ALPHA = 1.0f;
 
+    private static Vector3f position = new Vector3f(0.0f, 0.0f, 0.0f);
+    private static Vector3f rotation = new Vector3f(0.0f, 0.0f, 0.0f);
+
     private static final float[] vertices = {
             0.5f, 0.5f, 0.0f,
             0.5f, -0.5f, 0.0f,
@@ -144,6 +147,19 @@ public class Main {
             int projection = GL20.glGetUniformLocation(shaderProgram, "projection");
             GL20.glUniformMatrix4fv(projection, false, projection().get(buffer));
 
+            if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
+                position.z -= 0.1f;
+            } else if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) {
+                position.z += 0.1f;
+            } else if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) {
+                position.x -= 0.1f;
+            } else if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) {
+                position.x += 0.1f;
+            }
+
+            int view = GL20.glGetUniformLocation(shaderProgram, "view");
+            GL20.glUniformMatrix4fv(view, false, view().get(buffer));
+
             try {
                 GL13.glActiveTexture(texture(fileName1));
             } catch (Exception e) {
@@ -247,6 +263,15 @@ public class Main {
         projectionMatrix.m32(-((2 * 0.01f * 1000.0f) / frustum_length));
         projectionMatrix.m33(0);
         return projectionMatrix;
+    }
+
+    public static Matrix4f view() {
+        Matrix4f viewMatrix = new Matrix4f();
+        viewMatrix.identity().
+                rotate((float) Math.toRadians(rotation.x), new Vector3f(1, 0, 0)).
+                rotate((float) Math.toRadians(rotation.y), new Vector3f(0, 1, 0)).
+                translate(-position.x, -position.y, -position.z);
+        return viewMatrix;
     }
 
 
