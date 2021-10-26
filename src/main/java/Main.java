@@ -67,6 +67,7 @@ public class Main {
 
         GL11.glViewport(0, 0, WIDTH, HEIGHT);
         //GL11.glPolygonMode(GL11.GL_FRONT_AND_BACK, GL11.GL_LINE);
+        glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
         //Store data in buffers for the store data
         FloatBuffer vBuffer = BufferUtils.createFloatBuffer(vertices.length);
@@ -152,18 +153,18 @@ public class Main {
             Vector3f cam = new Vector3f(0, 0, 0);
 
             if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
-                cam.z = -1;
+                cam.z = -0.06f;
             } else if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) {
-                cam.z = 1;
+                cam.z = 0.06f;
             } else if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) {
-                cam.x -= 1;
+                cam.x -= 0.06f;
             } else if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) {
-                cam.x += 1;
+                cam.x += 0.06f;
             }
 
             camera.movePosition(cam.x * 1, cam.y * 1, cam.z * 1);
-            Mouse.getInstance().mouseDisplay();
-            Vector2f rot = Mouse.getInstance().getDisplay();
+            Mouse.getInstance().viewDirection();
+            Vector2f rot = Mouse.getInstance().getViewDirection();
             camera.moveRotation(rot.x * 0.06f, rot.y * 0.06f, 0);
 
             int view = GL20.glGetUniformLocation(shaderProgram, "view");
@@ -180,7 +181,7 @@ public class Main {
             glfwSwapBuffers(window);
             glfwPollEvents();
         }
-
+        Mouse.getInstance().clear();
         GL20.glDeleteShader(vertexShader);
         GL20.glDeleteShader(fragmentShader);
 

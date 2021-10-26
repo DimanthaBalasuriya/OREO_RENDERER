@@ -6,12 +6,12 @@ public class Mouse {
 
     private double xPos, yPos, lastX, lastY;
 
-    private Vector2f display;
+    private Vector2f viewDirection;
 
     public Mouse() {
         xPos = 0;
         yPos = 0;
-        display = new Vector2f(0, 0);
+        viewDirection = new Vector2f(0, 0);
     }
 
     public static Mouse getInstance() {
@@ -39,8 +39,8 @@ public class Mouse {
         return lastY;
     }
 
-    public Vector2f getDisplay() {
-        return display;
+    public Vector2f getViewDirection() {
+        return viewDirection;
     }
 
     public void setLastX(double lastX) {
@@ -51,24 +51,31 @@ public class Mouse {
         this.lastY = lastY;
     }
 
-    public void mouseDisplay() {
-        display.x = 0;
-        display.y = 0;
+    public void viewDirection() {
+        viewDirection.x = 0;
+        viewDirection.y = 0;
         if (getInstance().getLastX() > 0 && getInstance().getLastY() > 0) {
             double deltax = getInstance().getxPos() - getInstance().getLastX();
             double deltay = getInstance().getyPos() - getInstance().getLastY();
             boolean rotateX = deltax != 0;
             boolean rotateY = deltay != 0;
             if (rotateX) {
-                display.y = (float) deltax;
+                viewDirection.y = (float) deltax;
             }
             if (rotateY) {
-                display.x = (float) deltay;
+                viewDirection.x = (float) deltay;
             }
         }
         getInstance().setLastX(getInstance().getxPos());
         getInstance().setLastY(getInstance().getyPos());
+    }
 
+    public void clear() {
+        xPos = 0.0f;
+        yPos = 0.0f;
+        lastX = 0.0f;
+        lastY = 0.0f;
+        viewDirection = new Vector2f(0, 0);
     }
 
 }

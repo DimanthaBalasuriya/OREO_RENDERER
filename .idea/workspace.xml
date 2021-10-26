@@ -4,11 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fbe4a7e2-47bc-41b8-aad7-b3e8af8195be" name="Default Changelist" comment="Add simple camera movement for the renderer.">
-      <change afterPath="$PROJECT_DIR$/src/main/java/Camera.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Mouse.java" afterDir="false" />
+    <list default="true" id="fbe4a7e2-47bc-41b8-aad7-b3e8af8195be" name="Default Changelist" comment="Improve camera with mouse control and adding key control for the camera.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Mouse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Mouse.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -193,7 +192,14 @@
       <option name="project" value="LOCAL" />
       <updated>1635098845379</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Improve camera with mouse control and adding key control for the camera.">
+      <created>1635264778184</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1635264778184</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -216,7 +222,8 @@
     <MESSAGE value="Down the modded renderer for fixing bug." />
     <MESSAGE value="Re-make the renderer from base still not doing any abstraction for the code." />
     <MESSAGE value="Add simple camera movement for the renderer." />
-    <option name="LAST_COMMIT_MESSAGE" value="Add simple camera movement for the renderer." />
+    <MESSAGE value="Improve camera with mouse control and adding key control for the camera." />
+    <option name="LAST_COMMIT_MESSAGE" value="Improve camera with mouse control and adding key control for the camera." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
