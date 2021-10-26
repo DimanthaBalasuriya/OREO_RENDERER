@@ -1,4 +1,5 @@
 import org.joml.Matrix4f;
+import org.joml.Vector2f;
 import org.joml.Vector3f;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.*;
@@ -25,9 +26,6 @@ public class Main {
     private static final float GREEN = 0.12f;
     private static final float BLUE = 0.12f;
     private static final float ALPHA = 1.0f;
-
-    private static Vector3f position = new Vector3f(0.0f, 0.0f, 0.0f);
-    private static Vector3f rotation = new Vector3f(0.0f, 0.0f, 0.0f);
 
     private static final float[] vertices = {
             0.5f, 0.5f, 0.0f,
@@ -137,6 +135,10 @@ public class Main {
 
         FloatBuffer buffer = BufferUtils.createFloatBuffer(16);
 
+        Camera camera = new Camera();
+
+        glfwSetCursorPosCallback(window, Mouse::cursor_position_callback);
+
         while (!glfwWindowShouldClose(window)) {
             GL11.glClearColor(RED, GREEN, BLUE, ALPHA);
             GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
@@ -147,18 +149,25 @@ public class Main {
             int projection = GL20.glGetUniformLocation(shaderProgram, "projection");
             GL20.glUniformMatrix4fv(projection, false, projection().get(buffer));
 
+            Vector3f cam = new Vector3f(0, 0, 0);
+
             if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
-                position.z -= 0.1f;
+                cam.z = -1;
             } else if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) {
-                position.z += 0.1f;
+                cam.z = 1;
             } else if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) {
-                position.x -= 0.1f;
+                cam.x -= 1;
             } else if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) {
-                position.x += 0.1f;
+                cam.x += 1;
             }
 
+            camera.movePosition(cam.x * 1, cam.y * 1, cam.z * 1);
+            Mouse.getInstance().mouseDisplay();
+            Vector2f rot = Mouse.getInstance().getDisplay();
+            camera.moveRotation(rot.x * 0.06f, rot.y * 0.06f, 0);
+
             int view = GL20.glGetUniformLocation(shaderProgram, "view");
-            GL20.glUniformMatrix4fv(view, false, view().get(buffer));
+            GL20.glUniformMatrix4fv(view, false, view(camera).get(buffer));
 
             try {
                 GL13.glActiveTexture(texture(fileName1));
@@ -265,12 +274,12 @@ public class Main {
         return projectionMatrix;
     }
 
-    public static Matrix4f view() {
+    public static Matrix4f view(Camera camera) {
         Matrix4f viewMatrix = new Matrix4f();
         viewMatrix.identity().
-                rotate((float) Math.toRadians(rotation.x), new Vector3f(1, 0, 0)).
-                rotate((float) Math.toRadians(rotation.y), new Vector3f(0, 1, 0)).
-                translate(-position.x, -position.y, -position.z);
+                rotate((float) Math.toRadians(camera.getRotation().x), new Vector3f(1, 0, 0)).
+                rotate((float) Math.toRadians(camera.getRotation().y), new Vector3f(0, 1, 0)).
+                translate(-camera.getPosition().x, -camera.getPosition().y, -camera.getPosition().z);
         return viewMatrix;
     }
 

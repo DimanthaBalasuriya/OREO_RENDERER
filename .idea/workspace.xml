@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fbe4a7e2-47bc-41b8-aad7-b3e8af8195be" name="Default Changelist" comment="Re-make the renderer from base still not doing any abstraction for the code.">
+    <list default="true" id="fbe4a7e2-47bc-41b8-aad7-b3e8af8195be" name="Default Changelist" comment="Add simple camera movement for the renderer.">
+      <change afterPath="$PROJECT_DIR$/src/main/java/Camera.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Mouse.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/shaders/vertex_shader.glsl" beforeDir="false" afterPath="$PROJECT_DIR$/assets/shaders/vertex_shader.glsl" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -23,8 +24,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Interface" />
-        <option value="Class" />
         <option value="GLSL Shader" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -185,7 +186,14 @@
       <option name="project" value="LOCAL" />
       <updated>1635095688670</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Add simple camera movement for the renderer.">
+      <created>1635098845379</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1635098845379</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -207,7 +215,8 @@
     <MESSAGE value="Mod the renderer." />
     <MESSAGE value="Down the modded renderer for fixing bug." />
     <MESSAGE value="Re-make the renderer from base still not doing any abstraction for the code." />
-    <option name="LAST_COMMIT_MESSAGE" value="Re-make the renderer from base still not doing any abstraction for the code." />
+    <MESSAGE value="Add simple camera movement for the renderer." />
+    <option name="LAST_COMMIT_MESSAGE" value="Add simple camera movement for the renderer." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
