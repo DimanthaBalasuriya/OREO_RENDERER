@@ -68,6 +68,12 @@ public class Main {
         GL11.glViewport(0, 0, WIDTH, HEIGHT);
         //GL11.glPolygonMode(GL11.GL_FRONT_AND_BACK, GL11.GL_LINE);
         glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+        //glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
+        //glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+
+        if (glfwRawMouseMotionSupported()) {
+            glfwSetInputMode(window, GLFW_RAW_MOUSE_MOTION, GLFW_TRUE);
+        }
 
         //Store data in buffers for the store data
         FloatBuffer vBuffer = BufferUtils.createFloatBuffer(vertices.length);
@@ -166,6 +172,7 @@ public class Main {
             Mouse.getInstance().viewDirection();
             Vector2f rot = Mouse.getInstance().getViewDirection();
             camera.moveRotation(rot.x * 0.06f, rot.y * 0.06f, 0);
+            System.out.println(rot);
 
             int view = GL20.glGetUniformLocation(shaderProgram, "view");
             GL20.glUniformMatrix4fv(view, false, view(camera).get(buffer));

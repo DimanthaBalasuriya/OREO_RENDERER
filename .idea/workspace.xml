@@ -4,10 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fbe4a7e2-47bc-41b8-aad7-b3e8af8195be" name="Default Changelist" comment="Improve camera with mouse control and adding key control for the camera.">
+    <list default="true" id="fbe4a7e2-47bc-41b8-aad7-b3e8af8195be" name="Default Changelist" comment="Fix the mouse control bug.">
+      <change afterPath="$PROJECT_DIR$/src/main/java/MouseInput.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Test.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Mouse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Mouse.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -83,7 +84,7 @@
       <recent name="Loader" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Main">
+  <component name="RunManager" selected="Application.Test">
     <configuration name="Main (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="SubRoot.Main" />
       <module name="oreo.main" />
@@ -143,8 +144,16 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="Test" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Test" />
+      <module name="oreo.main" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Test" />
         <item itemvalue="Application.Main" />
         <item itemvalue="Application.Main (1)" />
         <item itemvalue="Application.ShaderOnly" />
@@ -199,7 +208,14 @@
       <option name="project" value="LOCAL" />
       <updated>1635264778184</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Fix the mouse control bug.">
+      <created>1635266096357</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1635266096357</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -223,7 +239,8 @@
     <MESSAGE value="Re-make the renderer from base still not doing any abstraction for the code." />
     <MESSAGE value="Add simple camera movement for the renderer." />
     <MESSAGE value="Improve camera with mouse control and adding key control for the camera." />
-    <option name="LAST_COMMIT_MESSAGE" value="Improve camera with mouse control and adding key control for the camera." />
+    <MESSAGE value="Fix the mouse control bug." />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix the mouse control bug." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
