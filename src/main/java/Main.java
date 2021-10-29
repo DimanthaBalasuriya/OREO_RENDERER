@@ -1,5 +1,6 @@
+import input.Keyboard;
+import input.Mouse;
 import org.joml.Matrix4f;
-import org.joml.Vector2f;
 import org.joml.Vector3f;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.*;
@@ -26,6 +27,8 @@ public class Main {
     private static final float GREEN = 0.12f;
     private static final float BLUE = 0.12f;
     private static final float ALPHA = 1.0f;
+
+    private static final float CAM_SPEED = 0.6f;
 
     private static final float[] vertices = {
             0.5f, 0.5f, 0.0f,
@@ -145,6 +148,7 @@ public class Main {
         Camera camera = new Camera();
 
         glfwSetCursorPosCallback(window, Mouse::cursor_position_callback);
+        glfwSetKeyCallback(window, Keyboard::key_callback);
 
         while (!glfwWindowShouldClose(window)) {
             GL11.glClearColor(RED, GREEN, BLUE, ALPHA);
@@ -156,23 +160,19 @@ public class Main {
             int projection = GL20.glGetUniformLocation(shaderProgram, "projection");
             GL20.glUniformMatrix4fv(projection, false, projection().get(buffer));
 
-            Vector3f cam = new Vector3f(0, 0, 0);
-
-            if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
-                cam.z = -0.06f;
-            } else if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) {
-                cam.z = 0.06f;
-            } else if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) {
-                cam.x -= 0.06f;
-            } else if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) {
-                cam.x += 0.06f;
+            if (Keyboard.isKeyPressed(GLFW_KEY_W)) {
+                camera.setPosition(0, 0, -CAM_SPEED);
+            } else if (Keyboard.isKeyPressed(GLFW_KEY_S)) {
+                camera.setPosition(0, 0, CAM_SPEED);
+            } else if (Keyboard.isKeyPressed(GLFW_KEY_A)) {
+                camera.setPosition(-CAM_SPEED, 0, 0);
+            } else if (Keyboard.isKeyPressed(GLFW_KEY_D)) {
+                camera.setPosition(CAM_SPEED, 0, 0);
+            } else if (Keyboard.isKeyPressed(GLFW_KEY_LEFT)) {
+                camera.setRotation(0, -CAM_SPEED, 0);
+            } else if (Keyboard.isKeyPressed(GLFW_KEY_RIGHT)) {
+                camera.setRotation(0, CAM_SPEED, 0);
             }
-
-            camera.movePosition(cam.x * 1, cam.y * 1, cam.z * 1);
-            Mouse.getInstance().viewDirection();
-            Vector2f rot = Mouse.getInstance().getViewDirection();
-            camera.moveRotation(rot.x * 0.06f, rot.y * 0.06f, 0);
-            System.out.println(rot);
 
             int view = GL20.glGetUniformLocation(shaderProgram, "view");
             GL20.glUniformMatrix4fv(view, false, view(camera).get(buffer));
@@ -188,7 +188,6 @@ public class Main {
             glfwSwapBuffers(window);
             glfwPollEvents();
         }
-        Mouse.getInstance().clear();
         GL20.glDeleteShader(vertexShader);
         GL20.glDeleteShader(fragmentShader);
 
