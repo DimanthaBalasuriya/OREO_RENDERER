@@ -28,18 +28,17 @@ public class Main {
     private static final float BLUE = 0.12f;
     private static final float ALPHA = 1.0f;
 
-    private static final float CAM_SPEED = 0.6f;
+    private static final float CAM_SPEED = 0.06f;
 
     private static final float[] vertices = {
-            0.5f, 0.5f, 0.0f,
-            0.5f, -0.5f, 0.0f,
+            -0.5f, 0.5f, 0.0f,
             -0.5f, -0.5f, 0.0f,
-            -0.5f, 0.5f, 0.0f
+            0.5f, -0.5f, 0.0f,
+            0.5f, 0.5f, 0.0f,
     };
 
     private static final int[] indices = {
-            0, 1, 3,
-            1, 2, 3
+            0, 1, 3, 3, 1, 2,
     };
 
     private static final float[] texture = {
@@ -150,15 +149,12 @@ public class Main {
         glfwSetCursorPosCallback(window, Mouse::cursor_position_callback);
         glfwSetKeyCallback(window, Keyboard::key_callback);
 
+        int projection = GL20.glGetUniformLocation(shaderProgram, "projection");
+        GL20.glUniformMatrix4fv(projection, false, projection().get(buffer));
+
         while (!glfwWindowShouldClose(window)) {
             GL11.glClearColor(RED, GREEN, BLUE, ALPHA);
             GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
-
-            int transformation = GL20.glGetUniformLocation(shaderProgram, "transform");
-            GL20.glUniformMatrix4fv(transformation, false, transform(new Vector3f(0, 0, -1f), new Vector3f(0, 0, 0), new Vector3f(1, 1.0f, 1)).get(buffer));
-
-            int projection = GL20.glGetUniformLocation(shaderProgram, "projection");
-            GL20.glUniformMatrix4fv(projection, false, projection().get(buffer));
 
             if (Keyboard.isKeyPressed(GLFW_KEY_W)) {
                 camera.setPosition(0, 0, -CAM_SPEED);
@@ -168,11 +164,14 @@ public class Main {
                 camera.setPosition(-CAM_SPEED, 0, 0);
             } else if (Keyboard.isKeyPressed(GLFW_KEY_D)) {
                 camera.setPosition(CAM_SPEED, 0, 0);
-            } else if (Keyboard.isKeyPressed(GLFW_KEY_LEFT)) {
-                camera.setRotation(0, -CAM_SPEED, 0);
-            } else if (Keyboard.isKeyPressed(GLFW_KEY_RIGHT)) {
-                camera.setRotation(0, CAM_SPEED, 0);
             }
+
+            Mouse.getInstance().calculateDelta();
+            camera.setRotation(Mouse.getInstance().getDelta().x * CAM_SPEED, Mouse.getInstance().getDelta().y * CAM_SPEED, 0);
+            Mouse.getInstance().setNewPos();
+
+            int transformation = GL20.glGetUniformLocation(shaderProgram, "transform");
+            GL20.glUniformMatrix4fv(transformation, false, transform(new Vector3f(0, 0, -1f), new Vector3f(0, 0, 0), new Vector3f(1, 1, 1)).get(buffer));
 
             int view = GL20.glGetUniformLocation(shaderProgram, "view");
             GL20.glUniformMatrix4fv(view, false, view(camera).get(buffer));
@@ -182,7 +181,7 @@ public class Main {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            GL11.glDrawElements(GL11.GL_TRIANGLES, 6, GL11.GL_UNSIGNED_INT, 0);
+            GL11.glDrawElements(GL11.GL_TRIANGLES, indices.length, GL11.GL_UNSIGNED_INT, 0);
 
             glfwSwapInterval(1);
             glfwSwapBuffers(window);
@@ -266,17 +265,17 @@ public class Main {
     }
 
     public static Matrix4f projection() {
-        Matrix4f projectionMatrix = new Matrix4f();
-        float aspectRatio = WIDTH / HEIGHT;
+        float aspectRatio = 1.77f;
         float y_scale = (float) ((1f / Math.tan(Math.toRadians(60 / 2f))) * aspectRatio);
         float x_scale = y_scale / aspectRatio;
-        float frustum_length = 1000.0f - 0.01f;
+        float frustum_length = 1000 - 0.01f;
 
+        Matrix4f projectionMatrix = new Matrix4f();
         projectionMatrix.m00(x_scale);
         projectionMatrix.m11(y_scale);
-        projectionMatrix.m22(-((1000.0f + 0.01f) / frustum_length));
+        projectionMatrix.m22(-((1000 + 0.01f) / frustum_length));
         projectionMatrix.m23(-1);
-        projectionMatrix.m32(-((2 * 0.01f * 1000.0f) / frustum_length));
+        projectionMatrix.m32(-((2 * 0.01f * 1000) / frustum_length));
         projectionMatrix.m33(0);
         return projectionMatrix;
     }

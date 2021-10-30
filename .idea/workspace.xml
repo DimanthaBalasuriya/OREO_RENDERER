@@ -4,17 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fbe4a7e2-47bc-41b8-aad7-b3e8af8195be" name="Default Changelist" comment="Test ground for checking inputs from mouse, key board and mouse scroll.">
-      <change afterPath="$PROJECT_DIR$/src/main/java/input/Keyboard.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/input/Mouse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/lwjgl/demo/opengl/camera/ArcballCameraDemo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/lwjgl/demo/opengl/camera/FreeCameraDemo.java" afterDir="false" />
+    <list default="true" id="fbe4a7e2-47bc-41b8-aad7-b3e8af8195be" name="Default Changelist" comment="Fix the camera bug.">
+      <change afterPath="$PROJECT_DIR$/assets/textures/grassblock.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Camera.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Camera.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Mouse.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/MouseInput.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Test.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/input/Mouse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/input/Mouse.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,7 +54,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="last_directory_selection" value="$PROJECT_DIR$/src/main/java" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/assets/OLD/textures/test" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/assets/textures" />
     <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -74,11 +69,11 @@
       <recent name="component" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\EDUCATION\PROJECTS\oreo\assets\textures" />
       <recent name="E:\EDUCATION\PROJECTS\oreo\assets\OLD\textures\test" />
       <recent name="E:\EDUCATION\PROJECTS\oreo\assets\models" />
       <recent name="E:\EDUCATION\PROJECTS\oreo\assets\textures\backpack" />
       <recent name="E:\EDUCATION\PROJECTS\oreo\assets\textures\human" />
-      <recent name="E:\EDUCATION\PROJECTS\oreo\assets\textures" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="E:\EDUCATION\PROJECTS\oreo\assets" />
@@ -229,7 +224,14 @@
       <option name="project" value="LOCAL" />
       <updated>1635442222792</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Implement Direction base movement system.">
+      <created>1635530769239</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1635530769239</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -255,7 +257,8 @@
     <MESSAGE value="Improve camera with mouse control and adding key control for the camera." />
     <MESSAGE value="Fix the mouse control bug." />
     <MESSAGE value="Test ground for checking inputs from mouse, key board and mouse scroll." />
-    <option name="LAST_COMMIT_MESSAGE" value="Test ground for checking inputs from mouse, key board and mouse scroll." />
+    <MESSAGE value="Implement Direction base movement system." />
+    <option name="LAST_COMMIT_MESSAGE" value="Implement Direction base movement system." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
