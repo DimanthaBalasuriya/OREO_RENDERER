@@ -2,6 +2,7 @@ import input.Keyboard;
 import input.Mouse;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
+import org.joml.Vector4f;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.*;
 import org.lwjgl.stb.STBImage;
@@ -175,6 +176,18 @@ public class Main {
 
             int view = GL20.glGetUniformLocation(shaderProgram, "view");
             GL20.glUniformMatrix4fv(view, false, view(camera).get(buffer));
+
+            float x = (2.0f * Mouse.getInstance().getX()) / WIDTH - 1.0f;
+            float y = 1.0f - (2.0f * Mouse.getInstance().getY()) / HEIGHT;
+            float z = 1.0f;
+
+            Vector3f ray_nds = new Vector3f(x, y, z);
+            Vector4f ray_clip = new Vector4f(ray_nds.x, ray_nds.y, -1.0f, 1.0f);
+            Vector4f ray_eye = projection().invertPerspective().transform(ray_clip);
+            ray_eye = new Vector4f(ray_eye.x, ray_eye.y, -1.0f, 0.0f);
+            Vector4f invRayWor = view(camera).invert().transform(ray_eye);
+            Vector3f ray_wor = new Vector3f(invRayWor.x, invRayWor.y, invRayWor.z).normalize();
+            System.out.println(ray_wor);
 
             try {
                 GL13.glActiveTexture(texture(fileName1));

@@ -4,12 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fbe4a7e2-47bc-41b8-aad7-b3e8af8195be" name="Default Changelist" comment="Fix the camera bug.">
-      <change afterPath="$PROJECT_DIR$/assets/textures/grassblock.png" afterDir="false" />
+    <list default="true" id="fbe4a7e2-47bc-41b8-aad7-b3e8af8195be" name="Default Changelist" comment="Fix projection matrix bug.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Camera.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Camera.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/input/Mouse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/input/Mouse.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -231,7 +228,14 @@
       <option name="project" value="LOCAL" />
       <updated>1635530769239</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Fix projection matrix bug.">
+      <created>1635615468832</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1635615468832</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -258,7 +262,8 @@
     <MESSAGE value="Fix the mouse control bug." />
     <MESSAGE value="Test ground for checking inputs from mouse, key board and mouse scroll." />
     <MESSAGE value="Implement Direction base movement system." />
-    <option name="LAST_COMMIT_MESSAGE" value="Implement Direction base movement system." />
+    <MESSAGE value="Fix projection matrix bug." />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix projection matrix bug." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
