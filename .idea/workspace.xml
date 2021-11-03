@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fbe4a7e2-47bc-41b8-aad7-b3e8af8195be" name="Default Changelist" comment="Fix projection matrix bug.">
+    <list default="true" id="fbe4a7e2-47bc-41b8-aad7-b3e8af8195be" name="Default Changelist" comment="Add ray casting.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/shaders/fragment_shader.glsl" beforeDir="false" afterPath="$PROJECT_DIR$/assets/shaders/fragment_shader.glsl" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -235,7 +236,14 @@
       <option name="project" value="LOCAL" />
       <updated>1635615468832</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Add ray casting.">
+      <created>1635676564238</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1635676564238</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -263,7 +271,8 @@
     <MESSAGE value="Test ground for checking inputs from mouse, key board and mouse scroll." />
     <MESSAGE value="Implement Direction base movement system." />
     <MESSAGE value="Fix projection matrix bug." />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix projection matrix bug." />
+    <MESSAGE value="Add ray casting." />
+    <option name="LAST_COMMIT_MESSAGE" value="Add ray casting." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

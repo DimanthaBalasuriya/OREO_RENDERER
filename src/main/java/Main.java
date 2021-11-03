@@ -30,6 +30,9 @@ public class Main {
     private static final float ALPHA = 1.0f;
 
     private static final float CAM_SPEED = 0.06f;
+    private static final float ROT_SPEED = 0.6f;
+
+    private static final float radius = 1.0f;
 
     private static final float[] vertices = {
             -0.5f, 0.5f, 0.0f,
@@ -69,14 +72,11 @@ public class Main {
         GL.createCapabilities();
 
         GL11.glViewport(0, 0, WIDTH, HEIGHT);
-        //GL11.glPolygonMode(GL11.GL_FRONT_AND_BACK, GL11.GL_LINE);
         glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-        //glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
-        //glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 
-        if (glfwRawMouseMotionSupported()) {
+/*        if (glfwRawMouseMotionSupported()) {
             glfwSetInputMode(window, GLFW_RAW_MOUSE_MOTION, GLFW_TRUE);
-        }
+        }*/
 
         //Store data in buffers for the store data
         FloatBuffer vBuffer = BufferUtils.createFloatBuffer(vertices.length);
@@ -165,6 +165,14 @@ public class Main {
                 camera.setPosition(-CAM_SPEED, 0, 0);
             } else if (Keyboard.isKeyPressed(GLFW_KEY_D)) {
                 camera.setPosition(CAM_SPEED, 0, 0);
+            } else if (Keyboard.isKeyPressed(GLFW_KEY_UP)) {
+                camera.setRotation(-ROT_SPEED, 0, 0);
+            } else if (Keyboard.isKeyPressed(GLFW_KEY_DOWN)) {
+                camera.setRotation(ROT_SPEED, 0, 0);
+            } else if (Keyboard.isKeyPressed(GLFW_KEY_LEFT)) {
+                camera.setRotation(0, -ROT_SPEED, 0);
+            } else if (Keyboard.isKeyPressed(GLFW_KEY_RIGHT)) {
+                camera.setRotation(0, ROT_SPEED, 0);
             }
 
             Mouse.getInstance().calculateDelta();
@@ -187,7 +195,13 @@ public class Main {
             ray_eye = new Vector4f(ray_eye.x, ray_eye.y, -1.0f, 0.0f);
             Vector4f invRayWor = view(camera).invert().transform(ray_eye);
             Vector3f ray_wor = new Vector3f(invRayWor.x, invRayWor.y, invRayWor.z).normalize();
-            System.out.println(ray_wor);
+
+            int hitColour = GL20.glGetUniformLocation(shaderProgram, "col");
+            if (intersectSphere(camera.getPosition(), ray_wor, 1, 1, 1)) {
+                GL20C.glUniform3f(hitColour, 0, 1, 0);
+            } else if (!intersectSphere(camera.getPosition(), ray_wor, 1, 1, 1)) {
+                GL20C.glUniform3f(hitColour, 0, 0, 1);
+            }
 
             try {
                 GL13.glActiveTexture(texture(fileName1));
@@ -293,6 +307,7 @@ public class Main {
         return projectionMatrix;
     }
 
+    //All the things here is camera.
     public static Matrix4f view(Camera camera) {
         Matrix4f viewMatrix = new Matrix4f();
         viewMatrix.identity().
@@ -302,5 +317,21 @@ public class Main {
         return viewMatrix;
     }
 
+    public static boolean intersectSphere(Vector3f p, Vector3f d, float r, float t1, float t2) {
+        float A = d.dot(d);
+        float B = 2.0f * d.dot(p);
+        float C = p.dot(p) - r * r;
+        float dis = B * B - 4.0f * A * C;
+
+        if (dis < 0.0f) {
+            return false;
+        }
+
+        float S = (float) Math.sqrt(dis);
+        t1 = (-B - S) / (2.0f * A);
+        t2 = (-B + S) / (2.0f * A);
+
+        return true;
+    }
 
 }
