@@ -1,4 +1,5 @@
 import Math.Transformation;
+import Shader.DefaultShader;
 import Texture.Color;
 import Texture.Material;
 import Texture.Texture;
@@ -10,9 +11,6 @@ import org.joml.Vector4f;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.*;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 
@@ -60,10 +58,6 @@ public class Main {
         GL11.glViewport(0, 0, WIDTH, HEIGHT);
         glfwSetInputMode(window.getWindow(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
-/*        if (glfwRawMouseMotionSupported()) {
-            glfwSetInputMode(window, GLFW_RAW_MOUSE_MOTION, GLFW_TRUE);
-        }*/
-
         //Store data in buffers for the store data
         FloatBuffer vBuffer = BufferUtils.createFloatBuffer(vertices.length);
         vBuffer.put(vertices).flip();
@@ -96,50 +90,16 @@ public class Main {
         GL20.glVertexAttribPointer(1, 2, GL11.GL_FLOAT, false, 0, 0);
         GL20.glEnableVertexAttribArray(1);
 
-        //All about shader
-        int vertexShader = GL20.glCreateShader(GL20.GL_VERTEX_SHADER);
-        GL20.glShaderSource(vertexShader, getShader("assets/shaders/vertex_shader.glsl"));
-        GL20.glCompileShader(vertexShader);
-
-        if (GL20.glGetShaderi(vertexShader, GL20.GL_COMPILE_STATUS) == GL11.GL_FALSE) {
-            System.out.println(GL20.glGetShaderInfoLog(vertexShader, 2400));
-            System.err.println("Could not compile shader...");
-            System.exit(-1);
-        }
-
-        int fragmentShader = GL20.glCreateShader(GL20.GL_FRAGMENT_SHADER);
-        GL20.glShaderSource(fragmentShader, getShader("assets/shaders/fragment_shader.glsl"));
-        GL20.glCompileShader(fragmentShader);
-
-        if (GL20.glGetShaderi(fragmentShader, GL20.GL_COMPILE_STATUS) == GL11.GL_FALSE) {
-            System.out.println(GL20.glGetShaderInfoLog(fragmentShader, 2400));
-            System.err.println("Could not compile shader...");
-            System.exit(-1);
-        }
-
-        int shaderProgram = GL20.glCreateProgram();
-        GL20.glAttachShader(shaderProgram, vertexShader);
-        GL20.glAttachShader(shaderProgram, fragmentShader);
-        GL20.glLinkProgram(shaderProgram);
-
-        GL20.glUseProgram(shaderProgram);
-
-        //Texture
-        String fileName1 = "assets/textures/image.png";
-
-        Material material1 = new Material(new Texture(fileName1), new Color(0, 0, 0, 0));
+        Material material = new Material(new Texture("assets/textures/image.png"), new Color(0, 0, 0, 0));
         Transformation transformation = new Transformation();
-
-
-        FloatBuffer buffer = BufferUtils.createFloatBuffer(16);
-
         Camera camera = new Camera();
+        DefaultShader defaultShader = new DefaultShader();
+        defaultShader.startProgram();
 
         glfwSetCursorPosCallback(window.getWindow(), Mouse::cursor_position_callback);
         glfwSetKeyCallback(window.getWindow(), Keyboard::key_callback);
 
-        int projection = GL20.glGetUniformLocation(shaderProgram, "projection");
-        GL20.glUniformMatrix4fv(projection, false, transformation.getProjectionMatrix(60, 1280, 720, 0.01f, 1000).get(buffer));
+        defaultShader.loadProjectionMatrix(transformation.getProjectionMatrix(60, 1280, 720, 0.01f, 1000));
 
         while (!glfwWindowShouldClose(window.getWindow())) {
             GL11.glClearColor(RED, GREEN, BLUE, ALPHA);
@@ -167,12 +127,6 @@ public class Main {
             camera.setRotation(Mouse.getInstance().getDelta().x * CAM_SPEED, Mouse.getInstance().getDelta().y * CAM_SPEED, 0);
             Mouse.getInstance().setNewPos();
 
-            int transformationLocation = GL20.glGetUniformLocation(shaderProgram, "transform");
-            GL20.glUniformMatrix4fv(transformationLocation, false, transformation.getTranslationMatrix(new Vector3f(0, 0, -1f), new Vector3f(0, 0, 0), new Vector3f(1, 1, 1)).get(buffer));
-
-            int viewLocation = GL20.glGetUniformLocation(shaderProgram, "view");
-            GL20.glUniformMatrix4fv(viewLocation, false, transformation.getViewMatrix(camera).get(buffer));
-
             float x = (2.0f * Mouse.getInstance().getX()) / WIDTH - 1.0f;
             float y = 1.0f - (2.0f * Mouse.getInstance().getY()) / HEIGHT;
             float z = 1.0f;
@@ -183,41 +137,28 @@ public class Main {
             ray_eye = new Vector4f(ray_eye.x, ray_eye.y, -1.0f, 0.0f);
             Vector4f invRayWor = transformation.getViewMatrix(camera).invert().transform(ray_eye);
             Vector3f ray_wor = new Vector3f(invRayWor.x, invRayWor.y, invRayWor.z).normalize();
+            System.out.println(ray_wor);
 
-            int hitColour = GL20.glGetUniformLocation(shaderProgram, "col");
+            defaultShader.loadTranslationMatrix(transformation.getTranslationMatrix(new Vector3f(0, 0, -1), new Vector3f(0, 0, 0), new Vector3f(1, 1, 1)));
+            defaultShader.loadViewMatrix(transformation.getViewMatrix(camera));
+/*            int hitColour = GL20.glGetUniformLocation(shaderProgram, "col");
             if (intersectSphere(camera.getPosition(), ray_wor, 1, 1, 1)) {
                 GL20C.glUniform3f(hitColour, 0, 1, 0);
             } else if (!intersectSphere(camera.getPosition(), ray_wor, 1, 1, 1)) {
                 GL20C.glUniform3f(hitColour, 0, 0, 1);
-            }
+            }*/
 
             try {
-                GL13.glActiveTexture(material1.getDiffuse().getTextureID());
+                GL13.glActiveTexture(material.getDiffuse().getTextureID());
             } catch (Exception e) {
                 e.printStackTrace();
             }
             GL11.glDrawElements(GL11.GL_TRIANGLES, indices.length, GL11.GL_UNSIGNED_INT, 0);
             window.update();
         }
-        GL20.glDeleteShader(vertexShader);
-        GL20.glDeleteShader(fragmentShader);
 
+        defaultShader.cleanShader();
         window.close();
-    }
-
-    private static String getShader(String file) {
-        StringBuilder stringBuilder = new StringBuilder();
-        try {
-            BufferedReader br = new BufferedReader(new FileReader(file));
-            String line;
-            while ((line = br.readLine()) != null) {
-                stringBuilder.append(line).append("\n");
-            }
-            br.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return stringBuilder.toString();
     }
 
     public static boolean intersectSphere(Vector3f p, Vector3f d, float r, float t1, float t2) {
