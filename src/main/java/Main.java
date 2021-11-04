@@ -1,3 +1,7 @@
+import Texture.Color;
+import Texture.Material;
+import Texture.Texture;
+import Tool.Camera;
 import input.Keyboard;
 import input.Mouse;
 import org.joml.Matrix4f;
@@ -5,14 +9,10 @@ import org.joml.Vector3f;
 import org.joml.Vector4f;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.*;
-import org.lwjgl.stb.STBImage;
-import org.lwjgl.system.MemoryStack;
-import org.lwjgl.system.MemoryUtil;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 
@@ -54,25 +54,11 @@ public class Main {
 
     public static void main(String[] args) {
 
-        glfwInit();
-        glfwDefaultWindowHints();
-        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-        glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-        glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GLFW_OPENGL_CORE_PROFILE);
-        glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL11.GL_TRUE);
-
-        long window = glfwCreateWindow(WIDTH, HEIGHT, TITLE, MemoryUtil.NULL, MemoryUtil.NULL);
-        if (window == MemoryUtil.NULL) {
-            System.out.println("Window not created...");
-            glfwTerminate();
-        }
-
-        glfwMakeContextCurrent(window);
-
-        GL.createCapabilities();
+        Window window = Window.getInstance();
+        window.init();
 
         GL11.glViewport(0, 0, WIDTH, HEIGHT);
-        glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+        glfwSetInputMode(window.getWindow(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
 /*        if (glfwRawMouseMotionSupported()) {
             glfwSetInputMode(window, GLFW_RAW_MOUSE_MOTION, GLFW_TRUE);
@@ -141,19 +127,21 @@ public class Main {
         //Texture
         String fileName1 = "assets/textures/image.png";
 
-        STBImage.stbi_set_flip_vertically_on_load(true);
+        Material material1 = new Material(new Texture(fileName1), new Color(0, 0, 0, 0));
+
+
 
         FloatBuffer buffer = BufferUtils.createFloatBuffer(16);
 
         Camera camera = new Camera();
 
-        glfwSetCursorPosCallback(window, Mouse::cursor_position_callback);
-        glfwSetKeyCallback(window, Keyboard::key_callback);
+        glfwSetCursorPosCallback(window.getWindow(), Mouse::cursor_position_callback);
+        glfwSetKeyCallback(window.getWindow(), Keyboard::key_callback);
 
         int projection = GL20.glGetUniformLocation(shaderProgram, "projection");
         GL20.glUniformMatrix4fv(projection, false, projection().get(buffer));
 
-        while (!glfwWindowShouldClose(window)) {
+        while (!glfwWindowShouldClose(window.getWindow())) {
             GL11.glClearColor(RED, GREEN, BLUE, ALPHA);
             GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
 
@@ -204,21 +192,17 @@ public class Main {
             }
 
             try {
-                GL13.glActiveTexture(texture(fileName1));
+                GL13.glActiveTexture(material1.getDiffuse().getTextureID());
             } catch (Exception e) {
                 e.printStackTrace();
             }
             GL11.glDrawElements(GL11.GL_TRIANGLES, indices.length, GL11.GL_UNSIGNED_INT, 0);
-
-            glfwSwapInterval(1);
-            glfwSwapBuffers(window);
-            glfwPollEvents();
+            window.update();
         }
         GL20.glDeleteShader(vertexShader);
         GL20.glDeleteShader(fragmentShader);
 
-        glfwTerminate();
-
+        window.close();
     }
 
     private static String getShader(String file) {
@@ -234,50 +218,6 @@ public class Main {
             e.printStackTrace();
         }
         return stringBuilder.toString();
-    }
-
-    public static int texture(String fileName) throws Exception {
-        ByteBuffer buf;
-        int width, height;
-        // Load Texture file
-        try (MemoryStack stack = MemoryStack.stackPush()) {
-            IntBuffer w = stack.mallocInt(1);
-            IntBuffer h = stack.mallocInt(1);
-            IntBuffer channels = stack.mallocInt(1);
-
-            buf = STBImage.stbi_load(fileName, w, h, channels, 4);
-            if (buf == null) {
-                throw new Exception("Image file [" + fileName + "] not loaded: " + STBImage.stbi_failure_reason());
-            }
-
-            width = w.get();
-            height = h.get();
-        }
-
-        int id = createTexture(buf, width, height);
-
-        STBImage.stbi_image_free(buf);
-        return id;
-    }
-
-    private static int createTexture(ByteBuffer buf, int width, int height) {
-        // Create a new OpenGL texture
-        int textureId = GL11.glGenTextures();
-        // Bind the texture
-        GL11.glBindTexture(GL11.GL_TEXTURE_2D, textureId);
-
-        // Tell OpenGL how to unpack the RGBA bytes. Each component is 1 byte size
-        GL11.glPixelStorei(GL11C.GL_UNPACK_ALIGNMENT, 1);
-
-        GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, GL11.GL_NEAREST);
-        GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER, GL11.GL_NEAREST);
-
-        // Upload the texture data
-        GL11.glTexImage2D(GL11.GL_TEXTURE_2D, 0, GL11.GL_RGBA, width, height, 0, GL11.GL_RGBA, GL11.GL_UNSIGNED_BYTE, buf);
-        // Generate Mip Map
-        GL30.glGenerateMipmap(GL11.GL_TEXTURE_2D);
-
-        return textureId;
     }
 
     public static Matrix4f transform(Vector3f position, Vector3f rotation, Vector3f scale) {

@@ -4,9 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fbe4a7e2-47bc-41b8-aad7-b3e8af8195be" name="Default Changelist" comment="Add ray casting.">
+    <list default="true" id="fbe4a7e2-47bc-41b8-aad7-b3e8af8195be" name="Default Changelist" comment="Adding ray sphere intersection to the renderer.">
+      <change afterPath="$PROJECT_DIR$/src/main/java/Texture/Color.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Texture/Material.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Texture/Texture.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Window.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/shaders/fragment_shader.glsl" beforeDir="false" afterPath="$PROJECT_DIR$/assets/shaders/fragment_shader.glsl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Camera.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Tool/Camera.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -243,7 +247,14 @@
       <option name="project" value="LOCAL" />
       <updated>1635676564238</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Adding ray sphere intersection to the renderer.">
+      <created>1635958392398</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1635958392398</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -272,7 +283,8 @@
     <MESSAGE value="Implement Direction base movement system." />
     <MESSAGE value="Fix projection matrix bug." />
     <MESSAGE value="Add ray casting." />
-    <option name="LAST_COMMIT_MESSAGE" value="Add ray casting." />
+    <MESSAGE value="Adding ray sphere intersection to the renderer." />
+    <option name="LAST_COMMIT_MESSAGE" value="Adding ray sphere intersection to the renderer." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
