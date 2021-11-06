@@ -1,3 +1,6 @@
+import Component.Model.MeshBuilder;
+import Component.Model.Object;
+import Component.Model.Translation;
 import Math.Transformation;
 import Shader.DefaultShader;
 import Texture.Color;
@@ -8,11 +11,10 @@ import input.Keyboard;
 import input.Mouse;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
-import org.lwjgl.BufferUtils;
-import org.lwjgl.opengl.*;
+import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL13;
 
-import java.nio.FloatBuffer;
-import java.nio.IntBuffer;
+import java.util.ArrayList;
 
 import static org.lwjgl.glfw.GLFW.*;
 
@@ -20,11 +22,10 @@ public class Main {
 
     private static final int WIDTH = 1280;
     private static final int HEIGHT = 720;
-    private static final String TITLE = "HELLO";
 
-    private static final float RED = 0.12f;
-    private static final float GREEN = 0.12f;
-    private static final float BLUE = 0.12f;
+    private static final float RED = 0.7f;
+    private static final float GREEN = 0.8f;
+    private static final float BLUE = 0.9f;
     private static final float ALPHA = 1.0f;
 
     private static final float CAM_SPEED = 0.06f;
@@ -58,39 +59,44 @@ public class Main {
         GL11.glViewport(0, 0, WIDTH, HEIGHT);
         glfwSetInputMode(window.getWindow(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
-        //Store data in buffers for the store data
-        FloatBuffer vBuffer = BufferUtils.createFloatBuffer(vertices.length);
-        vBuffer.put(vertices).flip();
+        MeshBuilder meshBuilder1 = new MeshBuilder(vertices, texture, indices);
+        Material material1 = new Material(new Texture("assets/textures/image.png"), new Color(0, 0, 0, 0));
+        Translation translation1 = new Translation(new Vector3f(-1, 0, -2), new Vector3f(0, 0, 0), new Vector3f(1, 1, 1));
+        Object object1 = new Object(meshBuilder1, material1, translation1);
 
-        IntBuffer eBuffer = BufferUtils.createIntBuffer(indices.length);
-        eBuffer.put(indices).flip();
+        MeshBuilder meshBuilder2 = new MeshBuilder(vertices, texture, indices);
+        Material material2 = new Material(new Texture("assets/textures/image.png"), new Color(0, 0, 0, 0));
+        Translation translation2 = new Translation(new Vector3f(1, 0, -2), new Vector3f(0, 0, 0), new Vector3f(1, 1, 1));
+        Object object2 = new Object(meshBuilder2, material2, translation2);
 
-        FloatBuffer tBuffer = BufferUtils.createFloatBuffer(texture.length);
-        tBuffer.put(texture).flip();
+        MeshBuilder meshBuilder3 = new MeshBuilder(vertices, texture, indices);
+        Material material3 = new Material(new Texture("assets/textures/image.png"), new Color(0, 0, 0, 0));
+        Translation translation3 = new Translation(new Vector3f(-1, 0, -4), new Vector3f(0, 0, 0), new Vector3f(1, 1, 1));
+        Object object3 = new Object(meshBuilder3, material3, translation3);
 
-        //Create VAO id for store buffers
-        int vao = GL30.glGenVertexArrays();
-        GL30.glBindVertexArray(vao);
+        MeshBuilder meshBuilder4 = new MeshBuilder(vertices, texture, indices);
+        Material material4 = new Material(new Texture("assets/textures/image.png"), new Color(0, 0, 0, 0));
+        Translation translation4 = new Translation(new Vector3f(1, 0, -4), new Vector3f(0, 0, 0), new Vector3f(1, 1, 1));
+        Object object4 = new Object(meshBuilder4, material4, translation4);
 
-        //Create VBO for store position data of polygons
-        int vbo = GL15.glGenBuffers();
-        GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, vbo);
-        GL15.glBufferData(GL15.GL_ARRAY_BUFFER, vBuffer, GL15.GL_STATIC_DRAW);
-        GL20.glVertexAttribPointer(0, 3, GL11.GL_FLOAT, false, 0, 0);
-        GL20.glEnableVertexAttribArray(0);
+        MeshBuilder meshBuilder5 = new MeshBuilder(vertices, texture, indices);
+        Material material5 = new Material(new Texture("assets/textures/image.png"), new Color(0, 0, 0, 0));
+        Translation translation5 = new Translation(new Vector3f(-1, 0, -6), new Vector3f(0, 0, 0), new Vector3f(1, 1, 1));
+        Object object5 = new Object(meshBuilder5, material5, translation5);
 
-        //Create VBO for store duplicated polygonal locations
-        int ebo = GL15C.glGenBuffers();
-        GL15.glBindBuffer(GL15.GL_ELEMENT_ARRAY_BUFFER, ebo);
-        GL15.glBufferData(GL15.GL_ELEMENT_ARRAY_BUFFER, eBuffer, GL15.GL_STATIC_DRAW);
+        MeshBuilder meshBuilder6 = new MeshBuilder(vertices, texture, indices);
+        Material material6 = new Material(new Texture("assets/textures/image.png"), new Color(0, 0, 0, 0));
+        Translation translation6 = new Translation(new Vector3f(1, 0, -6), new Vector3f(0, 0, 0), new Vector3f(1, 1, 1));
+        Object object6 = new Object(meshBuilder6, material6, translation6);
 
-        int tbo = GL15C.glGenBuffers();
-        GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, tbo);
-        GL15.glBufferData(GL15.GL_ARRAY_BUFFER, tBuffer, GL15.GL_STATIC_DRAW);
-        GL20.glVertexAttribPointer(1, 2, GL11.GL_FLOAT, false, 0, 0);
-        GL20.glEnableVertexAttribArray(1);
+        ArrayList<Object> ar = new ArrayList<Object>();
+        ar.add(object1);
+        ar.add(object2);
+        ar.add(object3);
+        ar.add(object4);
+        ar.add(object5);
+        ar.add(object6);
 
-        Material material = new Material(new Texture("assets/textures/image.png"), new Color(0, 0, 0, 0));
         Transformation transformation = new Transformation();
         Camera camera = new Camera();
         DefaultShader defaultShader = new DefaultShader();
@@ -103,7 +109,8 @@ public class Main {
 
         while (!glfwWindowShouldClose(window.getWindow())) {
             GL11.glClearColor(RED, GREEN, BLUE, ALPHA);
-            GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
+            GL11.glEnable(GL11.GL_DEPTH_TEST);
+            GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
 
             if (Keyboard.isKeyPressed(GLFW_KEY_W)) {
                 camera.setPosition(0, 0, -CAM_SPEED);
@@ -137,9 +144,8 @@ public class Main {
             ray_eye = new Vector4f(ray_eye.x, ray_eye.y, -1.0f, 0.0f);
             Vector4f invRayWor = transformation.getViewMatrix(camera).invert().transform(ray_eye);
             Vector3f ray_wor = new Vector3f(invRayWor.x, invRayWor.y, invRayWor.z).normalize();
-            System.out.println(ray_wor);
+            //System.out.println(ray_wor);
 
-            defaultShader.loadTranslationMatrix(transformation.getTranslationMatrix(new Vector3f(0, 0, -1), new Vector3f(0, 0, 0), new Vector3f(1, 1, 1)));
             defaultShader.loadViewMatrix(transformation.getViewMatrix(camera));
 /*            int hitColour = GL20.glGetUniformLocation(shaderProgram, "col");
             if (intersectSphere(camera.getPosition(), ray_wor, 1, 1, 1)) {
@@ -148,12 +154,12 @@ public class Main {
                 GL20C.glUniform3f(hitColour, 0, 0, 1);
             }*/
 
-            try {
-                GL13.glActiveTexture(material.getDiffuse().getTextureID());
-            } catch (Exception e) {
-                e.printStackTrace();
+            for (Object object : ar) {
+                defaultShader.loadTranslationMatrix(transformation.getTranslationMatrix(object.getTranslation().getPosition(), object.getTranslation().getRotation(), object.getTranslation().getScale()));
+                GL13.glActiveTexture(object.getMaterial().getDiffuse().getTextureID());
+                GL11.glDrawElements(GL11.GL_TRIANGLES, object.getMeshBuilder().getIndicesCount(), GL11.GL_UNSIGNED_INT, 0);
             }
-            GL11.glDrawElements(GL11.GL_TRIANGLES, indices.length, GL11.GL_UNSIGNED_INT, 0);
+
             window.update();
         }
 

@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fbe4a7e2-47bc-41b8-aad7-b3e8af8195be" name="Default Changelist" comment="Move all transform related functions in to the single class.">
-      <change afterPath="$PROJECT_DIR$/src/main/java/Shader/DefaultShader.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Shader/Shader.java" afterDir="false" />
+    <list default="true" id="fbe4a7e2-47bc-41b8-aad7-b3e8af8195be" name="Default Changelist" comment="Update Shader class for handle multiple shader programs.">
+      <change afterPath="$PROJECT_DIR$/src/main/java/Component/Model/MeshBuilder.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Component/Model/Object.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Component/Model/Translation.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
     </list>
@@ -265,7 +266,14 @@
       <option name="project" value="LOCAL" />
       <updated>1636013066403</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Update Shader class for handle multiple shader programs.">
+      <created>1636022178146</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1636022178146</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -297,7 +305,8 @@
     <MESSAGE value="Adding ray sphere intersection to the renderer." />
     <MESSAGE value="Found some memory leaks in current code.&#10;Fix several memory leaks.&#10;Abstract current code structure in to multiple java class.&#10;Done some optimizations for the current code.&#10;That's it for now." />
     <MESSAGE value="Move all transform related functions in to the single class." />
-    <option name="LAST_COMMIT_MESSAGE" value="Move all transform related functions in to the single class." />
+    <MESSAGE value="Update Shader class for handle multiple shader programs." />
+    <option name="LAST_COMMIT_MESSAGE" value="Update Shader class for handle multiple shader programs." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
