@@ -84,4 +84,11 @@ public class Window {
     public boolean isvSync() {
         return vSync;
     }
+
+    public static void framebuffer_call_back(long window, int width, int height) {
+        getInstance().width = width;
+        getInstance().height = height;
+        GL11.glViewport(0, 0, width, height);
+    }
+
 }

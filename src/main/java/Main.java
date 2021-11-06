@@ -56,7 +56,10 @@ public class Main {
         Window window = Window.getInstance();
         window.init();
 
-        GL11.glViewport(0, 0, WIDTH, HEIGHT);
+        glfwSetFramebufferSizeCallback(window.getWindow(), Window::framebuffer_call_back);
+        glfwSetCursorPosCallback(window.getWindow(), Mouse::cursor_position_callback);
+        glfwSetKeyCallback(window.getWindow(), Keyboard::key_callback);
+
         glfwSetInputMode(window.getWindow(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
         MeshBuilder meshBuilder1 = new MeshBuilder(vertices, texture, indices);
@@ -102,10 +105,8 @@ public class Main {
         DefaultShader defaultShader = new DefaultShader();
         defaultShader.startProgram();
 
-        glfwSetCursorPosCallback(window.getWindow(), Mouse::cursor_position_callback);
-        glfwSetKeyCallback(window.getWindow(), Keyboard::key_callback);
 
-        defaultShader.loadProjectionMatrix(transformation.getProjectionMatrix(60, 1280, 720, 0.01f, 1000));
+        defaultShader.loadProjectionMatrix(transformation.getProjectionMatrix(60, Window.getInstance().getWidth(), Window.getInstance().getHeight(), 0.01f, 1000));
 
         while (!glfwWindowShouldClose(window.getWindow())) {
             GL11.glClearColor(RED, GREEN, BLUE, ALPHA);
@@ -134,13 +135,13 @@ public class Main {
             camera.setRotation(Mouse.getInstance().getDelta().x * CAM_SPEED, Mouse.getInstance().getDelta().y * CAM_SPEED, 0);
             Mouse.getInstance().setNewPos();
 
-            float x = (2.0f * Mouse.getInstance().getX()) / WIDTH - 1.0f;
-            float y = 1.0f - (2.0f * Mouse.getInstance().getY()) / HEIGHT;
+            float x = (2.0f * Mouse.getInstance().getX()) / Window.getInstance().getWidth() - 1.0f;
+            float y = 1.0f - (2.0f * Mouse.getInstance().getY()) / Window.getInstance().getHeight();
             float z = 1.0f;
 
             Vector3f ray_nds = new Vector3f(x, y, z);
             Vector4f ray_clip = new Vector4f(ray_nds.x, ray_nds.y, -1.0f, 1.0f);
-            Vector4f ray_eye = transformation.getProjectionMatrix(60, 1280, 720, 0.01f, 1000).invertPerspective().transform(ray_clip);
+            Vector4f ray_eye = transformation.getProjectionMatrix(60, Window.getInstance().getWidth(), Window.getInstance().getHeight(), 0.01f, 1000).invertPerspective().transform(ray_clip);
             ray_eye = new Vector4f(ray_eye.x, ray_eye.y, -1.0f, 0.0f);
             Vector4f invRayWor = transformation.getViewMatrix(camera).invert().transform(ray_eye);
             Vector3f ray_wor = new Vector3f(invRayWor.x, invRayWor.y, invRayWor.z).normalize();

@@ -4,7 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fbe4a7e2-47bc-41b8-aad7-b3e8af8195be" name="Default Changelist" comment="Separate all mesh creation code into the separate class and made new class fot store translation data of the object." />
+    <list default="true" id="fbe4a7e2-47bc-41b8-aad7-b3e8af8195be" name="Default Changelist" comment="Workspace only.">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Window.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Window.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -267,7 +271,21 @@
       <option name="project" value="LOCAL" />
       <updated>1636022178146</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="Separate all mesh creation code into the separate class and made new class fot store translation data of the object.">
+      <created>1636223386556</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1636223386556</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Workspace only.">
+      <created>1636224483611</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1636224483611</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -300,7 +318,9 @@
     <MESSAGE value="Found some memory leaks in current code.&#10;Fix several memory leaks.&#10;Abstract current code structure in to multiple java class.&#10;Done some optimizations for the current code.&#10;That's it for now." />
     <MESSAGE value="Move all transform related functions in to the single class." />
     <MESSAGE value="Update Shader class for handle multiple shader programs." />
-    <option name="LAST_COMMIT_MESSAGE" value="Update Shader class for handle multiple shader programs." />
+    <MESSAGE value="Separate all mesh creation code into the separate class and made new class fot store translation data of the object." />
+    <MESSAGE value="Workspace only." />
+    <option name="LAST_COMMIT_MESSAGE" value="Workspace only." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
