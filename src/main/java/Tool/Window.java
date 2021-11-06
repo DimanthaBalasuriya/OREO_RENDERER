@@ -1,3 +1,5 @@
+package Tool;
+
 import org.lwjgl.opengl.GL;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.system.MemoryUtil;
@@ -35,7 +37,7 @@ public class Window {
 
         this.window = glfwCreateWindow(this.width, this.height, this.title, MemoryUtil.NULL, MemoryUtil.NULL);
         if (window == MemoryUtil.NULL) {
-            System.out.println("Window not created...");
+            System.out.println("Tool.Window not created...");
             glfwTerminate();
         }
 

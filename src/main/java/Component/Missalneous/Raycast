@@ -1,0 +1,33 @@
+private static final float radius = 1.0f;
+
+float x = (2.0f * Mouse.getInstance().getX()) / Tool.Window.getInstance().getWidth() - 1.0f;
+float y = 1.0f - (2.0f * Mouse.getInstance().getY()) / Tool.Window.getInstance().getHeight();
+float z = 1.0f;
+
+Vector3f ray_nds = new Vector3f(x, y, z);
+Vector4f ray_clip = new Vector4f(ray_nds.x, ray_nds.y, -1.0f, 1.0f);
+Vector4f ray_eye = transformation.getProjectionMatrix(60, Tool.Window.getInstance().getWidth(), Tool.Window.getInstance().getHeight(), 0.01f, 1000).invertPerspective().transform(ray_clip);
+ray_eye = new Vector4f(ray_eye.x, ray_eye.y, -1.0f, 0.0f);
+Vector4f invRayWor = transformation.getViewMatrix(camera).invert().transform(ray_eye);
+Vector3f ray_wor = new Vector3f(invRayWor.x, invRayWor.y, invRayWor.z).normalize();
+System.out.println(ray_wor);
+
+int hitColour = GL20.glGetUniformLocation(shaderProgram, "col");
+if (intersectSphere(camera.getPosition(), ray_wor, 1, 1, 1)) {
+    GL20C.glUniform3f(hitColour, 0, 1, 0);
+} else if (!intersectSphere(camera.getPosition(), ray_wor, 1, 1, 1)) {
+    GL20C.glUniform3f(hitColour, 0, 0, 1);
+}
+public static boolean intersectSphere(Vector3f p, Vector3f d, float r, float t1, float t2) {
+    float A = d.dot(d);
+    float B = 2.0f * d.dot(p);
+    float C = p.dot(p) - r * r;
+    float dis = B * B - 4.0f * A * C;
+    if (dis < 0.0f) {
+        return false;
+    }
+    float S = (float) Math.sqrt(dis);
+    t1 = (-B - S) / (2.0f * A);
+    t2 = (-B + S) / (2.0f * A);
+    return true;
+}
