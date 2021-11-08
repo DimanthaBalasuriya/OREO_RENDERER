@@ -15,7 +15,7 @@ public class Texture {
     private int width;
     private int height;
 
-    public Texture(String file) {
+    public Texture(String file, String type) {
         loadTextureResource(file);
     }
 

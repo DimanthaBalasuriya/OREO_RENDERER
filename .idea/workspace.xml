@@ -4,13 +4,24 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fbe4a7e2-47bc-41b8-aad7-b3e8af8195be" name="Default Changelist" comment="Update window according to framebuffer callbacks.">
-      <change afterPath="$PROJECT_DIR$/src/main/java/Component/Missalneous/Raycast" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Component/Render/Renderer.java" afterDir="false" />
+    <list default="true" id="fbe4a7e2-47bc-41b8-aad7-b3e8af8195be" name="Default Changelist" comment="Remove temperaly, the raycast code from the main program.&#10;Abstract all render related functions to the single class.&#10;Improve the renderer.">
+      <change afterPath="$PROJECT_DIR$/assets/shaders/skybox_fragment_shader.glsl" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/shaders/skybox_vertex_shader.glsl" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/textures/skybox/back.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/textures/skybox/bottom.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/textures/skybox/front.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/textures/skybox/left.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/textures/skybox/right.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/textures/skybox/top.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Component/Missalneous/Main.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Shader/SkyboxShader.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Texture/CubeMapTexture.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Component/Model/MeshBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Component/Model/MeshBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Component/Render/Renderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Component/Render/Renderer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Tool/Camera.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Tool/Camera.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Window.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Tool/Window.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Texture/Material.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Texture/Material.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Texture/Texture.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Texture/Texture.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,8 +36,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="GLSL Shader" />
         <option value="Interface" />
+        <option value="GLSL Shader" />
         <option value="Class" />
       </list>
     </option>
@@ -54,8 +65,10 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="ToolWindowGit.ShowToolbar" value="false" />
+    <property name="ToolWindowRun.ShowToolbar" value="false" />
     <property name="last_directory_selection" value="$PROJECT_DIR$/src/main/java" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/assets/textures" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/assets/textures/skybox" />
     <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -70,11 +83,11 @@
       <recent name="component" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\EDUCATION\PROJECTS\oreo\assets\textures\skybox" />
       <recent name="E:\EDUCATION\PROJECTS\oreo\assets\textures" />
       <recent name="E:\EDUCATION\PROJECTS\oreo\assets\OLD\textures\test" />
       <recent name="E:\EDUCATION\PROJECTS\oreo\assets\models" />
       <recent name="E:\EDUCATION\PROJECTS\oreo\assets\textures\backpack" />
-      <recent name="E:\EDUCATION\PROJECTS\oreo\assets\textures\human" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="E:\EDUCATION\PROJECTS\oreo\assets" />
@@ -87,7 +100,7 @@
       <recent name="Loader" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Main">
+  <component name="RunManager" selected="Application.Main (2)">
     <configuration name="ArcballCameraDemo" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="org.lwjgl.demo.opengl.camera.ArcballCameraDemo" />
       <module name="oreo.main" />
@@ -114,12 +127,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Main (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="SubRoot.Main" />
+    <configuration name="Main (2)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Component.Missalneous.Main" />
       <module name="oreo.main" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="SubRoot.*" />
+          <option name="PATTERN" value="Component.Missalneous.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -156,11 +169,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Main (2)" />
         <item itemvalue="Application.ArcballCameraDemo" />
         <item itemvalue="Application.FreeCameraDemo" />
         <item itemvalue="Application.Test" />
         <item itemvalue="Application.Main" />
-        <item itemvalue="Application.Main (1)" />
       </list>
     </recent_temporary>
   </component>
@@ -295,7 +308,21 @@
       <option name="project" value="LOCAL" />
       <updated>1636225261674</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="Remove temperaly, the raycast code from the main program.&#10;Abstract all render related functions to the single class.&#10;Improve the renderer.">
+      <created>1636231251963</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1636231251963</updated>
+    </task>
+    <task id="LOCAL-00019" summary="Remove temperaly, the raycast code from the main program.&#10;Abstract all render related functions to the single class.&#10;Improve the renderer.">
+      <created>1636231314002</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1636231314002</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -331,7 +358,8 @@
     <MESSAGE value="Separate all mesh creation code into the separate class and made new class fot store translation data of the object." />
     <MESSAGE value="Workspace only." />
     <MESSAGE value="Update window according to framebuffer callbacks." />
-    <option name="LAST_COMMIT_MESSAGE" value="Update window according to framebuffer callbacks." />
+    <MESSAGE value="Remove temperaly, the raycast code from the main program.&#10;Abstract all render related functions to the single class.&#10;Improve the renderer." />
+    <option name="LAST_COMMIT_MESSAGE" value="Remove temperaly, the raycast code from the main program.&#10;Abstract all render related functions to the single class.&#10;Improve the renderer." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

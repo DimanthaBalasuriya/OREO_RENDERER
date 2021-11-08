@@ -3,6 +3,7 @@ package Component.Render;
 import Component.Model.Object;
 import Math.Transformation;
 import Shader.DefaultShader;
+import Shader.SkyboxShader;
 import Tool.Camera;
 import Tool.Window;
 import input.Keyboard;
@@ -30,12 +31,15 @@ public class Renderer {
     private static final float ROT_SPEED = 0.6f;
 
     DefaultShader defaultShader = new DefaultShader();
+    SkyboxShader skyboxShader = new SkyboxShader();
     Transformation transformation = new Transformation();
     Camera camera = new Camera(new Vector3f(4, 6, 20), new Vector3f(30, 0, 0));
 
     public void init() {
         defaultShader.startProgram();
+        skyboxShader.startProgram();
         defaultShader.loadProjectionMatrix(transformation.getProjectionMatrix(fov, Window.getInstance().getWidth(), Window.getInstance().getHeight(), near, far));
+        skyboxShader.loadProjectionMatrix(transformation.getProjectionMatrix(fov, Window.getInstance().getWidth(), Window.getInstance().getHeight(), near, far));
     }
 
     public void prepare() {
@@ -44,7 +48,7 @@ public class Renderer {
         GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
     }
 
-    public void render(ArrayList<Object> objects) {
+    public void renderEntity(ArrayList<Object> objects) {
         defaultShader.loadViewMatrix(transformation.getViewMatrix(camera));
         for (Object object : objects) {
             defaultShader.loadTranslationMatrix(transformation.getTranslationMatrix(object.getTranslation().getPosition(), object.getTranslation().getRotation(), object.getTranslation().getScale()));
@@ -53,8 +57,19 @@ public class Renderer {
         }
     }
 
+    public void renderSkybox(Object skybox) {
+        GL11.glDepthFunc(GL11.GL_LEQUAL);
+        skyboxShader.loadViewMatrix(transformation.getViewMatrix(camera));
+        //GL30.glBindVertexArray(skybox.getMeshBuilder().getVaoID());
+        //GL13.glActiveTexture(GL13.GL_TEXTURE0);
+        GL11.glDrawArrays(GL11.GL_TRIANGLES, 0, 36);
+        GL13.glBindTexture(GL13.GL_TEXTURE_CUBE_MAP, 0);
+        GL11.glDepthFunc(GL11.GL_LESS);
+    }
+
     public void destroy() {
         defaultShader.cleanShader();
+        skyboxShader.cleanShader();
     }
 
     public void inputProcess() {

@@ -16,10 +16,15 @@ public class MeshBuilder {
 
     public MeshBuilder(float[] positions, float[] uvs, int[] indices) {
         this.vaoID = createNewVao();
-        storeDataInVertexBuffer(0, 3, positions);
-        storeDataInIndicesBuffer(indices);
-        storeDataInVertexBuffer(1, 2, uvs);
-        enableVertexAttribArrays();
+        if (positions == null || uvs == null || indices == null) {
+            storeDataInVertexBuffer(0, 3, positions);
+            System.out.println(vaoID);
+        } else {
+            storeDataInVertexBuffer(0, 3, positions);
+            storeDataInIndicesBuffer(indices);
+            storeDataInVertexBuffer(1, 2, uvs);
+            enableVertexAttribArrays();
+        }
     }
 
     private void storeDataInVertexBuffer(int index, int size, float[] data) {
