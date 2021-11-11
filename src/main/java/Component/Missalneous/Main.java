@@ -237,6 +237,7 @@ public class Main {
         cubeMapTextures.add("assets/textures/skybox/back.jpg");
 
         int cubeMapTextureId = createCubeMapTexture(cubeMapTextures);
+        int texture = texture(fileName1);
 
         STBImage.stbi_set_flip_vertically_on_load(true);
 
@@ -255,7 +256,8 @@ public class Main {
 
         while (!glfwWindowShouldClose(window)) {
             GL11.glClearColor(RED, GREEN, BLUE, ALPHA);
-            GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
+            GL11.glEnable(GL11.GL_DEPTH_TEST);
+            GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
 
             if (Keyboard.isKeyPressed(GLFW_KEY_W)) {
                 camera.setPosition(0, 0, -CAM_SPEED);
@@ -303,7 +305,8 @@ public class Main {
                 GL20.glUniform3f(hitColour, 0, 0, 1);
             }
 
-            GL13.glActiveTexture(texture(fileName1));
+            GL30.glBindVertexArray(vao);
+            GL13.glActiveTexture(texture);
             GL11.glDrawElements(GL11.GL_TRIANGLES, indices.length, GL11.GL_UNSIGNED_INT, 0);
 
             GL11.glDepthFunc(GL11.GL_LEQUAL);
@@ -375,6 +378,7 @@ public class Main {
 
     private static int createTexture(ByteBuffer buf, int width, int height) {
         int textureId = GL11.glGenTextures();
+        System.out.println(textureId);
         GL11.glBindTexture(GL11.GL_TEXTURE_2D, textureId);
         GL11.glPixelStorei(GL11C.GL_UNPACK_ALIGNMENT, 1);
         GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, GL11.GL_NEAREST);
@@ -387,6 +391,7 @@ public class Main {
     private static int createCubeMapTexture(ArrayList<String> list) {
         ByteBuffer buf;
         int textureId = GL11.glGenTextures();
+        System.out.println(textureId);
         GL11.glBindTexture(GL13.GL_TEXTURE_CUBE_MAP, textureId);
 
         int width, height;

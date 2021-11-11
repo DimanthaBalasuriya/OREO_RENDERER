@@ -4,24 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fbe4a7e2-47bc-41b8-aad7-b3e8af8195be" name="Default Changelist" comment="Remove temperaly, the raycast code from the main program.&#10;Abstract all render related functions to the single class.&#10;Improve the renderer.">
-      <change afterPath="$PROJECT_DIR$/assets/shaders/skybox_fragment_shader.glsl" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/shaders/skybox_vertex_shader.glsl" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/textures/skybox/back.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/textures/skybox/bottom.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/textures/skybox/front.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/textures/skybox/left.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/textures/skybox/right.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/textures/skybox/top.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Component/Missalneous/Main.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Shader/SkyboxShader.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Texture/CubeMapTexture.java" afterDir="false" />
+    <list default="true" id="fbe4a7e2-47bc-41b8-aad7-b3e8af8195be" name="Default Changelist" comment="Add Cube map based skybox.(Testing done but it has problem with main code).">
+      <change afterPath="$PROJECT_DIR$/assets/textures/yokohama/negx.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/textures/yokohama/negy.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/textures/yokohama/negz.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/textures/yokohama/posx.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/textures/yokohama/posy.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/textures/yokohama/posz.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Pathway/Test.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Component/Model/MeshBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Component/Model/MeshBuilder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Component/Render/Renderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Component/Render/Renderer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Texture/Material.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Texture/Material.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Texture/Texture.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Texture/Texture.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Component/Missalneous/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Component/Missalneous/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -68,7 +60,7 @@
     <property name="ToolWindowGit.ShowToolbar" value="false" />
     <property name="ToolWindowRun.ShowToolbar" value="false" />
     <property name="last_directory_selection" value="$PROJECT_DIR$/src/main/java" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/assets/textures/skybox" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/assets/textures/yokohama" />
     <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -83,11 +75,11 @@
       <recent name="component" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\EDUCATION\PROJECTS\oreo\assets\textures\yokohama" />
       <recent name="E:\EDUCATION\PROJECTS\oreo\assets\textures\skybox" />
       <recent name="E:\EDUCATION\PROJECTS\oreo\assets\textures" />
       <recent name="E:\EDUCATION\PROJECTS\oreo\assets\OLD\textures\test" />
       <recent name="E:\EDUCATION\PROJECTS\oreo\assets\models" />
-      <recent name="E:\EDUCATION\PROJECTS\oreo\assets\textures\backpack" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="E:\EDUCATION\PROJECTS\oreo\assets" />
@@ -100,7 +92,7 @@
       <recent name="Loader" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Main (2)">
+  <component name="RunManager" selected="Application.Test (1)">
     <configuration name="ArcballCameraDemo" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="org.lwjgl.demo.opengl.camera.ArcballCameraDemo" />
       <module name="oreo.main" />
@@ -141,21 +133,21 @@
       </method>
     </configuration>
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Main" />
+      <option name="MAIN_CLASS_NAME" value="Test.Main" />
       <module name="oreo.main" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value=".*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Test.Main" />
+    <configuration name="Test (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Pathway.Test" />
       <module name="oreo.main" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Pathway.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -169,11 +161,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Test (1)" />
         <item itemvalue="Application.Main (2)" />
         <item itemvalue="Application.ArcballCameraDemo" />
         <item itemvalue="Application.FreeCameraDemo" />
         <item itemvalue="Application.Test" />
-        <item itemvalue="Application.Main" />
       </list>
     </recent_temporary>
   </component>
@@ -322,7 +314,14 @@
       <option name="project" value="LOCAL" />
       <updated>1636231314002</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="Add Cube map based skybox.(Testing done but it has problem with main code).">
+      <created>1636371008787</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1636371008787</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -359,7 +358,8 @@
     <MESSAGE value="Workspace only." />
     <MESSAGE value="Update window according to framebuffer callbacks." />
     <MESSAGE value="Remove temperaly, the raycast code from the main program.&#10;Abstract all render related functions to the single class.&#10;Improve the renderer." />
-    <option name="LAST_COMMIT_MESSAGE" value="Remove temperaly, the raycast code from the main program.&#10;Abstract all render related functions to the single class.&#10;Improve the renderer." />
+    <MESSAGE value="Add Cube map based skybox.(Testing done but it has problem with main code)." />
+    <option name="LAST_COMMIT_MESSAGE" value="Add Cube map based skybox.(Testing done but it has problem with main code)." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
